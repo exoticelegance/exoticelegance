@@ -4,76 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Exotic Elegance | Car Detailing</title>
-
 <style>
-/* RESET */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
-/* BODY */
 body { font-family: Arial, sans-serif; background: white; color: #111; }
 
 /* HEADER */
-header {
-  background: #051429;
-  color: #F0B94D;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 10;
-}
-
+header { background: #051429; color: #F0B94D; display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; position: fixed; width: 100%; top: 0; z-index: 10; }
 header h2 { color: #F0B94D; }
-
-/* HAMBURGER MENU */
-.menu-btn {
-  display: none;
-  font-size: 30px;
-  cursor: pointer;
-  color: #F0B94D;
-}
-
-nav {
-  display: flex;
-  gap: 15px;
-}
-
-nav a {
-  color: black;
-  background: #F0B94D;
-  padding: 8px 12px;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-}
-
-@media screen and (max-width: 768px) {
-  nav { display: none; flex-direction: column; background: #051429; position: absolute; top: 60px; right: 0; width: 200px; }
-  nav a { color: #F0B94D; margin: 10px; background: none; border: 1px solid #F0B94D; }
-  .menu-btn { display: block; }
-  nav.show { display: flex; }
-}
+.menu-btn { display: none; font-size: 30px; cursor: pointer; color: #F0B94D; }
+nav { display: flex; gap: 15px; }
+nav a { color: black; background: #F0B94D; padding: 8px 12px; text-decoration: none; border-radius: 5px; font-weight: bold; }
+@media screen and (max-width: 768px) { nav { display: none; flex-direction: column; background: #051429; position: absolute; top: 60px; right: 0; width: 200px; } nav a { color: #F0B94D; margin: 10px; background: none; border: 1px solid #F0B94D; } .menu-btn { display: block; } nav.show { display: flex; } }
 
 /* HERO */
-.hero {
-  text-align: center;
-  padding: 120px 20px 80px;
-  background: linear-gradient(to right, #051429, #1e3a5f);
-  color: white;
-}
-
+.hero { text-align: center; padding: 120px 20px 80px; background: linear-gradient(to right, #051429, #1e3a5f); color: white; }
 .hero h1 { font-size: 40px; margin-bottom: 10px; }
 .hero p { font-size: 18px; max-width: 600px; margin: 10px auto; }
 .btn { background: #F0B94D; color: black; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; margin-top: 20px; }
 
 /* SECTIONS */
 .section { padding: 50px 20px; text-align: center; }
-
 .services { display: flex; flex-wrap: wrap; justify-content: center; }
 .service { border: 1px solid #ddd; margin: 15px; padding: 20px; width: 250px; border-radius: 8px; }
+
+/* ABOUT US */
+.about { background: #f5f5f5; padding: 50px 20px; text-align: center; }
+.about p { max-width: 600px; margin: auto; font-size: 16px; }
 
 /* GALLERY / CAROUSEL */
 .carousel { position: relative; max-width: 600px; margin: 20px auto; overflow: hidden; border-radius: 8px; }
@@ -84,63 +40,41 @@ nav a {
 
 /* CONTACT */
 .contact { background: #051429; color: white; padding: 50px 20px; }
-.contact a { color: #F0B94D; text-decoration: none; font-weight: bold; }
+.contact a { text-decoration: none; font-weight: bold; }
+.contact .btn { color: black; } /* asegurar texto negro */
 
 /* FOOTER */
 footer { text-align: center; padding: 15px; font-size: 14px; background: #051429; color: #BE9F7E; margin-top: 50px; }
 
 /* MODAL */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 20;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.7);
-}
-
-.modal-content {
-  background: white;
-  margin: 10% auto;
-  padding: 20px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 400px;
-}
-
+.modal { display: none; position: fixed; z-index: 20; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.7); }
+.modal-content { background: white; margin: 10% auto; padding: 20px; border-radius: 10px; width: 90%; max-width: 400px; }
 .close { float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
-.modal input, .modal select, .modal button {
-  width: 100%; margin: 10px 0; padding: 10px; border-radius: 5px; border: 1px solid #ccc;
-}
+.modal input, .modal select, .modal button { width: 100%; margin: 10px 0; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
 .modal button { background: #F0B94D; color: black; font-weight: bold; border: none; cursor: pointer; }
-
-/* BOOKING HOURS SELECT */
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
   <h2>Exotic Elegance</h2>
   <span class="menu-btn">&#9776;</span>
   <nav>
     <a href="#hero">Home</a>
     <a href="#services">Services</a>
+    <a href="#about">About Us</a>
     <a href="#gallery">Gallery</a>
     <a href="#" id="bookBtn">Book Now</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
 
-<!-- HERO -->
 <section class="hero" id="hero">
   <h1>Premium Car Detailing in Jacksonville</h1>
   <p>We bring luxury-level detailing to your vehicle. From deep cleaning to full restoration, Exotic Elegance ensures your car looks flawless inside and out.</p>
   <a class="btn" href="#contact" target="_blank">Contact Us</a>
 </section>
 
-<!-- SERVICES -->
 <section class="section" id="services">
   <h2>Services</h2>
   <div class="services">
@@ -151,7 +85,12 @@ footer { text-align: center; padding: 15px; font-size: 14px; background: #051429
   </div>
 </section>
 
-<!-- GALLERY / CAROUSEL -->
+<!-- ABOUT US -->
+<section class="about" id="about">
+  <h2>About Us</h2>
+  <p>Exotic Elegance is dedicated to providing premium car detailing services in Jacksonville. We use the highest quality products and techniques to ensure your vehicle looks flawless, inside and out. Our team is passionate about luxury and precision in every detail.</p>
+</section>
+
 <section class="section" id="gallery">
   <h2>Gallery</h2>
   <div class="carousel">
@@ -165,7 +104,6 @@ footer { text-align: center; padding: 15px; font-size: 14px; background: #051429
   </div>
 </section>
 
-<!-- CONTACT -->
 <section class="contact" id="contact">
   <h2>Contact</h2>
   <p>📞 Phone: +1 (939) 209-4746</p>
@@ -173,7 +111,6 @@ footer { text-align: center; padding: 15px; font-size: 14px; background: #051429
   <a class="btn" href="https://wa.me/19392094746" target="_blank">Message on WhatsApp</a>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p>© 2026 Exotic Elegance</p>
 </footer>
