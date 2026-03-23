@@ -6,215 +6,153 @@
 <title>Exotic Elegance | Car Detailing</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: white;
-  color: #111;
-}
+/* RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* BODY */
+body { font-family: Arial, sans-serif; background: white; color: #111; }
 
 /* HEADER */
 header {
-  background: #051429; /* azul oscuro */
-  color: #F0B94D; /* título mismo color que botones */
-  padding: 15px 30px;
+  background: #051429;
+  color: #F0B94D;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 15px 30px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10;
 }
 
-header h2 {
-  color: #F0B94D; /* color de los botones */
+header h2 { color: #F0B94D; }
+
+/* HAMBURGER MENU */
+.menu-btn {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #F0B94D;
 }
 
-header a {
-  background: #F0B94D; /* botones */
+nav {
+  display: flex;
+  gap: 15px;
+}
+
+nav a {
   color: black;
-  padding: 10px 15px;
+  background: #F0B94D;
+  padding: 8px 12px;
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+  nav { display: none; flex-direction: column; background: #051429; position: absolute; top: 60px; right: 0; width: 200px; }
+  nav a { color: #F0B94D; margin: 10px; background: none; border: 1px solid #F0B94D; }
+  .menu-btn { display: block; }
+  nav.show { display: flex; }
 }
 
 /* HERO */
 .hero {
   text-align: center;
-  padding: 80px 20px;
+  padding: 120px 20px 80px;
   background: linear-gradient(to right, #051429, #1e3a5f);
   color: white;
 }
 
-.hero h1 {
-  font-size: 40px;
-}
-
-.hero p {
-  font-size: 18px;
-  max-width: 600px;
-  margin: auto;
-}
-
-.btn {
-  margin-top: 20px;
-  display: inline-block;
-  background: #F0B94D; /* botones */
-  color: black; /* asegurar que texto se vea */
-  padding: 12px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-}
+.hero h1 { font-size: 40px; margin-bottom: 10px; }
+.hero p { font-size: 18px; max-width: 600px; margin: 10px auto; }
+.btn { background: #F0B94D; color: black; padding: 12px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; margin-top: 20px; }
 
 /* SECTIONS */
-.section {
-  padding: 50px 20px;
-  text-align: center;
-}
+.section { padding: 50px 20px; text-align: center; }
 
-.services {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+.services { display: flex; flex-wrap: wrap; justify-content: center; }
+.service { border: 1px solid #ddd; margin: 15px; padding: 20px; width: 250px; border-radius: 8px; }
 
-.service {
-  border: 1px solid #ddd;
-  margin: 15px;
-  padding: 20px;
-  width: 250px;
-  border-radius: 8px;
-}
-
-/* GALLERY - Carrusel */
-.carousel {
-  position: relative;
-  max-width: 600px;
-  margin: 20px auto;
-  overflow: hidden;
-  border-radius: 8px;
-}
-
-.carousel img {
-  width: 100%;
-  display: none;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-}
-
-.carousel img.active {
-  display: block;
-}
-
-.prev, .next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #F0B94D;
-  color: black;
-  padding: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-weight: bold;
-  border: none;
-}
-
-.prev { left: 10px; }
-.next { right: 10px; }
+/* GALLERY / CAROUSEL */
+.carousel { position: relative; max-width: 600px; margin: 20px auto; overflow: hidden; border-radius: 8px; }
+.carousel img { width: 100%; display: none; border: 2px solid #ddd; border-radius: 8px; }
+.carousel img.active { display: block; }
+.prev, .next { position: absolute; top: 50%; transform: translateY(-50%); background: #F0B94D; color: black; padding: 10px; border-radius: 50%; cursor: pointer; font-weight: bold; border: none; }
+.prev { left: 10px; } .next { right: 10px; }
 
 /* CONTACT */
-.contact {
-  background: #051429;
-  color: white;
-  padding: 50px 20px;
-}
-
-.contact a {
-  color: #F0B94D; /* instagram clickable color */
-  text-decoration: none;
-  font-weight: bold;
-}
-
-/* BOOK NOW FORM */
-#booking {
-  padding: 50px 20px;
-  background: #f5f5f5;
-  text-align: center;
-}
-
-#booking select, #booking button {
-  padding: 10px;
-  margin: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-#booking button {
-  background: #F0B94D;
-  border: none;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-}
+.contact { background: #051429; color: white; padding: 50px 20px; }
+.contact a { color: #F0B94D; text-decoration: none; font-weight: bold; }
 
 /* FOOTER */
-footer {
-  text-align: center;
-  padding: 15px;
-  font-size: 14px;
-  background: #051429;
-  color: #BE9F7E;
+footer { text-align: center; padding: 15px; font-size: 14px; background: #051429; color: #BE9F7E; margin-top: 50px; }
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 20;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
 }
+
+.modal-content {
+  background: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.close { float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+.modal input, .modal select, .modal button {
+  width: 100%; margin: 10px 0; padding: 10px; border-radius: 5px; border: 1px solid #ccc;
+}
+.modal button { background: #F0B94D; color: black; font-weight: bold; border: none; cursor: pointer; }
+
+/* BOOKING HOURS SELECT */
 </style>
 </head>
-
 <body>
 
 <!-- HEADER -->
 <header>
   <h2>Exotic Elegance</h2>
-  <a href="#booking">Book Now</a>
+  <span class="menu-btn">&#9776;</span>
+  <nav>
+    <a href="#hero">Home</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#" id="bookBtn">Book Now</a>
+    <a href="#contact">Contact</a>
+  </nav>
 </header>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="hero">
   <h1>Premium Car Detailing in Jacksonville</h1>
-  <p>
-    We bring luxury-level detailing to your vehicle. From deep cleaning to full restoration, 
-    Exotic Elegance ensures your car looks flawless inside and out.
-  </p>
-  <a class="btn" href="#contact">Contact Us</a>
+  <p>We bring luxury-level detailing to your vehicle. From deep cleaning to full restoration, Exotic Elegance ensures your car looks flawless inside and out.</p>
+  <a class="btn" href="#contact" target="_blank">Contact Us</a>
 </section>
 
 <!-- SERVICES -->
-<section class="section">
+<section class="section" id="services">
   <h2>Services</h2>
-
   <div class="services">
-    <div class="service">
-      <h3>Interior Detailing</h3>
-      <p>Deep cleaning of seats, carpets, and full interior restoration.</p>
-    </div>
-
-    <div class="service">
-      <h3>Exterior Detailing</h3>
-      <p>Hand wash, wax, polish, and paint protection for a perfect finish.</p>
-    </div>
-
-    <div class="service">
-      <h3>Full Detail</h3>
-      <p>Complete interior + exterior package for a like-new vehicle.</p>
-    </div>
-
-    <div class="service">
-      <h3>Paint Correction</h3>
-      <p>Remove scratches and restore your car’s original shine.</p>
-    </div>
-
+    <div class="service"><h3>Interior Detailing</h3><p>Deep cleaning of seats, carpets, and full interior restoration.</p></div>
+    <div class="service"><h3>Exterior Detailing</h3><p>Hand wash, wax, polish, and paint protection for a perfect finish.</p></div>
+    <div class="service"><h3>Full Detail</h3><p>Complete interior + exterior package for a like-new vehicle.</p></div>
+    <div class="service"><h3>Paint Correction</h3><p>Remove scratches and restore your car’s original shine.</p></div>
   </div>
 </section>
 
 <!-- GALLERY / CAROUSEL -->
-<section class="section">
+<section class="section" id="gallery">
   <h2>Gallery</h2>
   <div class="carousel">
     <img src="images/car1.jpg" class="active" alt="Car 1">
@@ -227,46 +165,12 @@ footer {
   </div>
 </section>
 
-<!-- BOOKING / CALENDAR -->
-<section id="booking">
-  <h2>Book Your Appointment</h2>
-  <p>Select a date and time for your car detailing:</p>
-  <form>
-    <input type="date" name="date" required>
-    <select name="time" required>
-      <!-- Lista de horas de 30 min entre 8AM y 5PM -->
-      <option value="08:00">8:00 AM</option>
-      <option value="08:30">8:30 AM</option>
-      <option value="09:00">9:00 AM</option>
-      <option value="09:30">9:30 AM</option>
-      <option value="10:00">10:00 AM</option>
-      <option value="10:30">10:30 AM</option>
-      <option value="11:00">11:00 AM</option>
-      <option value="11:30">11:30 AM</option>
-      <option value="12:00">12:00 PM</option>
-      <option value="12:30">12:30 PM</option>
-      <option value="01:00">1:00 PM</option>
-      <option value="01:30">1:30 PM</option>
-      <option value="02:00">2:00 PM</option>
-      <option value="02:30">2:30 PM</option>
-      <option value="03:00">3:00 PM</option>
-      <option value="03:30">3:30 PM</option>
-      <option value="04:00">4:00 PM</option>
-      <option value="04:30">4:30 PM</option>
-      <option value="05:00">5:00 PM</option>
-    </select>
-    <br>
-    <button type="submit">Confirm Booking</button>
-  </form>
-</section>
-
 <!-- CONTACT -->
 <section class="contact" id="contact">
   <h2>Contact</h2>
   <p>📞 Phone: +1 (939) 209-4746</p>
   <p>📷 Instagram: <a href="https://www.instagram.com/exoticc_elegance" target="_blank">@exoticc_elegance</a></p>
-
-  <a class="btn" href="https://wa.me/19392094746">Message on WhatsApp</a>
+  <a class="btn" href="https://wa.me/19392094746" target="_blank">Message on WhatsApp</a>
 </section>
 
 <!-- FOOTER -->
@@ -274,27 +178,64 @@ footer {
   <p>© 2026 Exotic Elegance</p>
 </footer>
 
+<!-- MODAL -->
+<div id="bookingModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Book Your Appointment</h2>
+    <form>
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <input type="date" name="date" required>
+      <select name="time" required>
+        <option value="08:00">8:00 AM</option>
+        <option value="08:30">8:30 AM</option>
+        <option value="09:00">9:00 AM</option>
+        <option value="09:30">9:30 AM</option>
+        <option value="10:00">10:00 AM</option>
+        <option value="10:30">10:30 AM</option>
+        <option value="11:00">11:00 AM</option>
+        <option value="11:30">11:30 AM</option>
+        <option value="12:00">12:00 PM</option>
+        <option value="12:30">12:30 PM</option>
+        <option value="01:00">1:00 PM</option>
+        <option value="01:30">1:30 PM</option>
+        <option value="02:00">2:00 PM</option>
+        <option value="02:30">2:30 PM</option>
+        <option value="03:00">3:00 PM</option>
+        <option value="03:30">3:30 PM</option>
+        <option value="04:00">4:00 PM</option>
+        <option value="04:30">4:30 PM</option>
+        <option value="05:00">5:00 PM</option>
+      </select>
+      <button type="submit">Confirm Booking</button>
+    </form>
+  </div>
+</div>
+
 <script>
-// Carrusel simple
+// HAMBURGER MENU
+const menuBtn = document.querySelector('.menu-btn');
+const nav = document.querySelector('nav');
+menuBtn.addEventListener('click', () => { nav.classList.toggle('show'); });
+
+// CARRUSEL
 let slideIndex = 0;
 const slides = document.querySelectorAll(".carousel img");
 const prev = document.querySelector(".prev");
 const next = document.querySelector(".next");
+function showSlide(index){ slides.forEach(s => s.classList.remove("active")); slides[index].classList.add("active"); }
+prev.addEventListener("click", () => { slideIndex = (slideIndex - 1 + slides.length) % slides.length; showSlide(slideIndex); });
+next.addEventListener("click", () => { slideIndex = (slideIndex + 1) % slides.length; showSlide(slideIndex); });
 
-function showSlide(index) {
-  slides.forEach((slide) => slide.classList.remove("active"));
-  slides[index].classList.add("active");
-}
-
-prev.addEventListener("click", () => {
-  slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-  showSlide(slideIndex);
-});
-
-next.addEventListener("click", () => {
-  slideIndex = (slideIndex + 1) % slides.length;
-  showSlide(slideIndex);
-});
+// MODAL BOOK NOW
+const modal = document.getElementById('bookingModal');
+const btn = document.getElementById('bookBtn');
+const span = document.querySelector('.close');
+btn.onclick = () => { modal.style.display = 'block'; }
+span.onclick = () => { modal.style.display = 'none'; }
+window.onclick = e => { if(e.target == modal) modal.style.display = 'none'; }
 </script>
 
 </body>
