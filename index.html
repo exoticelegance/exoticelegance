@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Exotic Elegance | Car Detailing</title>
+
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: Arial, sans-serif; background: white; color: #111; }
@@ -14,7 +15,12 @@ header h2 { color: #F0B94D; }
 .menu-btn { display: none; font-size: 30px; cursor: pointer; color: #F0B94D; }
 nav { display: flex; gap: 15px; }
 nav a { color: black; background: #F0B94D; padding: 8px 12px; text-decoration: none; border-radius: 5px; font-weight: bold; }
-@media screen and (max-width: 768px) { nav { display: none; flex-direction: column; background: #051429; position: absolute; top: 60px; right: 0; width: 200px; } nav a { color: #F0B94D; margin: 10px; background: none; border: 1px solid #F0B94D; } .menu-btn { display: block; } nav.show { display: flex; } }
+@media screen and (max-width: 768px) { 
+  nav { display: none; flex-direction: column; background: #051429; position: absolute; top: 60px; right: 0; width: 200px; } 
+  nav a { color: #F0B94D; margin: 10px; background: none; border: 1px solid #F0B94D; } 
+  .menu-btn { display: block; } 
+  nav.show { display: flex; } 
+}
 
 /* HERO */
 .hero { text-align: center; padding: 120px 20px 80px; background: linear-gradient(to right, #051429, #1e3a5f); color: white; }
@@ -41,7 +47,10 @@ nav a { color: black; background: #F0B94D; padding: 8px 12px; text-decoration: n
 /* CONTACT */
 .contact { background: #051429; color: white; padding: 50px 20px; }
 .contact a { text-decoration: none; font-weight: bold; }
-.contact .btn { color: black; } /* asegurar texto negro */
+.contact a.instagram { color: #F0B94D !important; } /* fuerza dorado incluso si ya se visitó */
+.contact a:visited { color: #F0B94D !important; }
+.contact a:hover { color: #F0B94D; }
+.contact .btn { color: black; text-align: center; display: inline-block; margin-top: 10px; }
 
 /* FOOTER */
 footer { text-align: center; padding: 15px; font-size: 14px; background: #051429; color: #BE9F7E; margin-top: 50px; }
@@ -85,7 +94,6 @@ footer { text-align: center; padding: 15px; font-size: 14px; background: #051429
   </div>
 </section>
 
-<!-- ABOUT US -->
 <section class="about" id="about">
   <h2>About Us</h2>
   <p>Exotic Elegance is dedicated to providing premium car detailing services in Jacksonville. We use the highest quality products and techniques to ensure your vehicle looks flawless, inside and out. Our team is passionate about luxury and precision in every detail.</p>
@@ -107,7 +115,7 @@ footer { text-align: center; padding: 15px; font-size: 14px; background: #051429
 <section class="contact" id="contact">
   <h2>Contact</h2>
   <p>📞 Phone: +1 (939) 209-4746</p>
-  <p>📷 Instagram: <a href="https://www.instagram.com/exoticc_elegance" target="_blank">@exoticc_elegance</a></p>
+  <p>📷 Instagram: <a href="https://www.instagram.com/exoticc_elegance" target="_blank" class="instagram">@exoticc_elegance</a></p>
   <a class="btn" href="https://wa.me/19392094746" target="_blank">Message on WhatsApp</a>
 </section>
 
