@@ -13,17 +13,22 @@ body {
   color: #111;
 }
 
+/* HEADER */
 header {
-  background: #0b1a2f;
-  color: white;
+  background: #051429; /* azul oscuro */
+  color: #F0B94D; /* título mismo color que botones */
   padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+header h2 {
+  color: #F0B94D; /* color de los botones */
+}
+
 header a {
-  background: gold;
+  background: #F0B94D; /* botones */
   color: black;
   padding: 10px 15px;
   text-decoration: none;
@@ -31,10 +36,11 @@ header a {
   font-weight: bold;
 }
 
+/* HERO */
 .hero {
   text-align: center;
   padding: 80px 20px;
-  background: linear-gradient(to right, #0b1a2f, #1e3a5f);
+  background: linear-gradient(to right, #051429, #1e3a5f);
   color: white;
 }
 
@@ -51,14 +57,15 @@ header a {
 .btn {
   margin-top: 20px;
   display: inline-block;
-  background: gold;
-  color: black;
+  background: #F0B94D; /* botones */
+  color: black; /* asegurar que texto se vea */
   padding: 12px 20px;
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
 }
 
+/* SECTIONS */
 .section {
   padding: 50px 20px;
   text-align: center;
@@ -78,38 +85,109 @@ header a {
   border-radius: 8px;
 }
 
+/* GALLERY - Carrusel */
+.carousel {
+  position: relative;
+  max-width: 600px;
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.carousel img {
+  width: 100%;
+  display: none;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+}
+
+.carousel img.active {
+  display: block;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #F0B94D;
+  color: black;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* CONTACT */
 .contact {
-  background: #0b1a2f;
+  background: #051429;
   color: white;
   padding: 50px 20px;
 }
 
+.contact a {
+  color: #F0B94D; /* instagram clickable color */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* BOOK NOW FORM */
+#booking {
+  padding: 50px 20px;
+  background: #f5f5f5;
+  text-align: center;
+}
+
+#booking select, #booking button {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#booking button {
+  background: #F0B94D;
+  border: none;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* FOOTER */
 footer {
   text-align: center;
   padding: 15px;
   font-size: 14px;
+  background: #051429;
+  color: #BE9F7E;
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header>
   <h2>Exotic Elegance</h2>
-  <a href="#contact">Book Now</a>
+  <a href="#booking">Book Now</a>
 </header>
 
+<!-- HERO -->
 <section class="hero">
   <h1>Premium Car Detailing in Jacksonville</h1>
   <p>
-    We bring luxury-level detailing to your vehicle. From deep cleaning to full restoration,
+    We bring luxury-level detailing to your vehicle. From deep cleaning to full restoration, 
     Exotic Elegance ensures your car looks flawless inside and out.
   </p>
-  <a class="btn" href="#contact">Reserve Your Spot</a>
+  <a class="btn" href="#contact">Contact Us</a>
 </section>
 
+<!-- SERVICES -->
 <section class="section">
-  <h2>Servicios / Services</h2>
+  <h2>Services</h2>
 
   <div class="services">
     <div class="service">
@@ -135,25 +213,89 @@ footer {
   </div>
 </section>
 
+<!-- GALLERY / CAROUSEL -->
 <section class="section">
-  <h2>About Us / Sobre Nosotros</h2>
-  <p>
-    At Exotic Elegance, we specialize in high-end car detailing in the Jacksonville (St. Johns) area.
-    Our mission is to deliver professional, reliable, and high-quality service that makes your vehicle stand out.
-  </p>
+  <h2>Gallery</h2>
+  <div class="carousel">
+    <img src="images/car1.jpg" class="active" alt="Car 1">
+    <img src="images/car2.jpg" alt="Car 2">
+    <img src="images/car3.jpg" alt="Car 3">
+    <img src="images/car4.jpg" alt="Car 4">
+    <img src="images/car5.jpg" alt="Car 5">
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+  </div>
 </section>
 
+<!-- BOOKING / CALENDAR -->
+<section id="booking">
+  <h2>Book Your Appointment</h2>
+  <p>Select a date and time for your car detailing:</p>
+  <form>
+    <input type="date" name="date" required>
+    <select name="time" required>
+      <!-- Lista de horas de 30 min entre 8AM y 5PM -->
+      <option value="08:00">8:00 AM</option>
+      <option value="08:30">8:30 AM</option>
+      <option value="09:00">9:00 AM</option>
+      <option value="09:30">9:30 AM</option>
+      <option value="10:00">10:00 AM</option>
+      <option value="10:30">10:30 AM</option>
+      <option value="11:00">11:00 AM</option>
+      <option value="11:30">11:30 AM</option>
+      <option value="12:00">12:00 PM</option>
+      <option value="12:30">12:30 PM</option>
+      <option value="01:00">1:00 PM</option>
+      <option value="01:30">1:30 PM</option>
+      <option value="02:00">2:00 PM</option>
+      <option value="02:30">2:30 PM</option>
+      <option value="03:00">3:00 PM</option>
+      <option value="03:30">3:30 PM</option>
+      <option value="04:00">4:00 PM</option>
+      <option value="04:30">4:30 PM</option>
+      <option value="05:00">5:00 PM</option>
+    </select>
+    <br>
+    <button type="submit">Confirm Booking</button>
+  </form>
+</section>
+
+<!-- CONTACT -->
 <section class="contact" id="contact">
-  <h2>Contact / Contacto</h2>
+  <h2>Contact</h2>
   <p>📞 Phone: +1 (939) 209-4746</p>
-  <p>📷 Instagram: @exoticc_elegance</p>
+  <p>📷 Instagram: <a href="https://www.instagram.com/exoticc_elegance" target="_blank">@exoticc_elegance</a></p>
 
   <a class="btn" href="https://wa.me/19392094746">Message on WhatsApp</a>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <p>© 2026 Exotic Elegance - Jacksonville, FL</p>
+  <p>© 2026 Exotic Elegance</p>
 </footer>
+
+<script>
+// Carrusel simple
+let slideIndex = 0;
+const slides = document.querySelectorAll(".carousel img");
+const prev = document.querySelector(".prev");
+const next = document.querySelector(".next");
+
+function showSlide(index) {
+  slides.forEach((slide) => slide.classList.remove("active"));
+  slides[index].classList.add("active");
+}
+
+prev.addEventListener("click", () => {
+  slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+  showSlide(slideIndex);
+});
+
+next.addEventListener("click", () => {
+  slideIndex = (slideIndex + 1) % slides.length;
+  showSlide(slideIndex);
+});
+</script>
 
 </body>
 </html>
