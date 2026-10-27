@@ -997,6 +997,11 @@
         <input type="hidden" id="bookTime" value="">
         <span class="field-error-msg" id="errTime">Please select a time slot.</span>
       </div>
+      <div class="form-group">
+        <label for="bookLocation">Preferred location</label>
+        <input type="text" id="bookLocation" placeholder="123 Main St, Jacksonville, FL 32202" autocomplete="off">
+        <span class="field-error-msg" id="errLocation">Please enter your preffered location, we come to you!</span>
+      </div>
       <div class="form-footer">
         <button class="outline-btn" id="bookingCancelBtn" type="button">Cancel</button>
         <button class="gold-btn" id="bookingSubmitBtn" type="button">Confirm Booking</button>
@@ -1226,7 +1231,7 @@ function clearBookingErrors() {
     const el = document.getElementById(id);
     if (el) el.classList.remove('field-error');
   });
-  ['errName', 'errContact', 'errService', 'errVehicle', 'errDate', 'errTime'].forEach(id => {
+  ['errName', 'errContact', 'errService', 'errVehicle', 'errDate', 'errTime', 'errLocation'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.remove('visible');
   });
@@ -1272,7 +1277,8 @@ const fieldErrMap = {
   bookContact: 'errContact',
   bookService: 'errService',
   bookVehicle: 'errVehicle',
-  bookDate:    'errDate'
+  bookDate:    'errDate',
+  bookLocation: 'errLocation'
 };
 Object.entries(fieldErrMap).forEach(([fieldId, errId]) => {
   const el = document.getElementById(fieldId);
@@ -1349,7 +1355,8 @@ if (submitBtn) {
     const service = document.getElementById('bookService');
     const vehicle = document.getElementById('bookVehicle');
     const date    = document.getElementById('bookDate');
-    const time    = document.getElementById('bookTime'); // hidden input
+    const time    = document.getElementById('bookTime'); 
+    const locationInput = document.getElementById('bookLocation');// hidden input
 
     // ── Validate ────────────────────────────────────────────────
     let valid = true;
@@ -1383,6 +1390,11 @@ if (submitBtn) {
     if (!time.value) {
       document.querySelectorAll('.time-slot-btn').forEach(b => b.classList.add('field-error-border'));
       document.getElementById('errTime').classList.add('visible');
+      valid = false;
+    }
+    if (!locationInput.value.trim()) {
+      locationInput.classList.add('field-error');
+      document.getElementById('errLocation').classList.add('visible');
       valid = false;
     }
     if (!valid) return;
