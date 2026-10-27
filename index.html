@@ -609,6 +609,14 @@
   .field-error-msg.visible { display: block; }
   .form-footer { display: flex; justify-content: flex-end; gap: 12px; margin-top: 8px; }
 
+  /* Pricing note */
+.price-note {
+  color: #C62828;
+  font-size: 12px;
+  font-style: italic;
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
   /* Add-ons checkboxes */
   .addons-list {
     display: flex; flex-direction: column; gap: 10px;
@@ -1002,6 +1010,9 @@
         <input type="text" id="bookLocation" placeholder="123 Main St, Jacksonville, FL 32202" autocomplete="off">
         <span class="field-error-msg" id="errLocation">Please enter your preffered location, we come to you!</span>
       </div>
+      <p class="price-note">
+        *Final price may vary after vehicle inspection.
+      </p>
       <div class="form-footer">
         <button class="outline-btn" id="bookingCancelBtn" type="button">Cancel</button>
         <button class="gold-btn" id="bookingSubmitBtn" type="button">Confirm Booking</button>
