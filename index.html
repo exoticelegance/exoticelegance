@@ -535,7 +535,8 @@
   }
   .modal-header {
     background: var(--navy); padding: 32px 36px 28px;
-    border-radius: 16px 16px 0 0; position: sticky; top: 0; z-index: 1;
+    border-radius: 16px 16px 0 0; position: sticky; top: 0; z-index: 1; isolation: isolate;
+  box-shadow: 0 -2px 0 2px var(--navy);
   }
   .modal-header-label {
     font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em;
