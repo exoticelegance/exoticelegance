@@ -283,6 +283,8 @@
   background: url('exterior.png') center/cover;}
   .service-card[data-svc="full"] {
   background: url('full.png') center/cover;}
+  .service-card[data-svc="headlights"] {
+  background: url('headlights.png') center/cover;}
 
   .service-card-overlay {
     position: absolute; inset: 0;
@@ -806,6 +808,15 @@
         <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
       </div>
     </div>
+    <div class="service-card reveal reveal-delay-4" data-svc="headlights" role="button" tabindex="0" aria-label="Headlights restoration – click to learn more">
+      <div class="service-card-overlay">
+        <div class="service-card-number">04</div>
+        <div class="service-card-title">Headlights Restoration</div>
+      </div>
+      <div class="service-card-arrow" aria-hidden="true">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -978,6 +989,7 @@
             <option value="interior">Elegance Interior</option>
             <option value="exterior">Elegance Exterior</option>
             <option value="full">Elegance Package</option>
+            <option value="headlights">Headlights Restoration</option>
           </select>
         </div>
         <span class="field-error-msg" id="errService">Please select a service.</span>
@@ -1046,27 +1058,34 @@ const SERVICES = {
   interior: {
     label: 'Elegance Interior',
     desc: 'Comprehensive interior cleaning including vacuuming, surface wipe-down, deep carpet cleaning, leather cleaning and protection, and full interior sanitation.',
-    addons: ['Pet hair removal', 'Stain removal'],
+    addons: ['Headlights restoration', 'Pet hair removal', 'Stain removal'],
     price: 'Starting at $65'
   },
   exterior: {
     label: 'Elegance Exterior',
     desc: 'Complete exterior detailing including wheels and tires cleaning, door jambs, pre-wash, contact wash, wax application, and window cleaning.',
-    addons: ['Water spot removal', 'Paint decontamination', 'Trim restoration', '1-month wax protection'],
+    addons: ['Headlights restoration', 'Water spot removal', 'Paint decontamination', 'Trim restoration', '1-month wax protection'],
     price: 'Starting at $60'
   },
   full: {
     label: 'Elegance Package',
     desc: 'Full interior and exterior detailing service combining all features for a complete vehicle transformation.',
-    addons: ['Water spot removal', 'Paint decontamination', 'Pet hair removal', 'Trim restoration', '1-month wax protection (instead of 2-week standard protection)'],
+    addons: ['Headlights restoration', 'Water spot removal', 'Paint decontamination', 'Pet hair removal', 'Trim restoration', '1-month wax protection (instead of 2-week standard protection)'],
     price: 'Starting at $100'
+  }
+  headlights: {
+    label: 'Headlights Restoration',
+    desc: 'Professional headlight restoration to remove oxidation, improve clarity, and restore its appearance. Includes a 2-year ceramic coating for long-lasting protection.',
+    addons: [ ],
+    price: 'Starting at $40'
   }
 };
 
 const SERVICE_ADDONS = {
-  interior: ['Pet hair removal', ' stain removal (humidity, spills, etc.)'],
-  exterior: ['Water spot removal', 'Paint decontamination', 'Trim restoration', '1-month wax protection'],
-  full: ['Water spot removal', 'Paint decontamination', 'Pet hair removal', 'Trim restoration', '1-month wax protection (instead of 2-week standard protection)']
+  interior: ['Headlights restoration', ''Pet hair removal', ' stain removal (humidity, spills, etc.)'],
+  exterior: ['Headlights restoration', ''Water spot removal', 'Paint decontamination', 'Trim restoration', '1-month wax protection'],
+  full: ['Headlights restoration', ''Water spot removal', 'Paint decontamination', 'Pet hair removal', 'Trim restoration', '1-month wax protection (instead of 2-week standard protection)'],
+  headlights: [],
 };
 
 /* ── 3. TIME SLOT HELPERS ─────────────────────────────────────── */
@@ -1313,7 +1332,7 @@ if (bookServiceEl) {
     const list  = document.getElementById('addonsList');
     if (!group || !list) return;
 
-    if (!val || !SERVICE_ADDONS[val]) {
+    if (!val || val === 'headlights' || !SERVICE_ADDONS[val]) {
       group.style.display = 'none';
       list.innerHTML = '';
       return;
@@ -1513,7 +1532,12 @@ function openService(key) {
   if (!s) return;
   serviceTitle.textContent = s.label;
   serviceDesc.textContent  = s.desc;
-  serviceAddons.innerHTML  = s.addons.map(a => `<li>${a}</li>`).join('');
+  serviceAddons.innerHTML = s.addons.map(a => `<li>${a}</li>`).join('');
+
+const addonsLabel = serviceAddons.previousElementSibling;
+
+addonsLabel.style.display = s.addons.length ? '' : 'none';
+serviceAddons.style.display = s.addons.length ? '' : 'none';
   const priceEl = document.getElementById('serviceModalPrice');
   if (priceEl && s.price) {
     // s.price = "Starting at $100" → split at $ to color the amount
