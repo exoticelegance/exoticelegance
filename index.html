@@ -1464,6 +1464,7 @@ if (submitBtn) {
           'Vehicle':          vehicle.value.trim(),
           'Date':             date.value,
           'Time':             timeLabel,
+          'Address':          locationInput.value.trim(),
           message: [
             '📋 NEW BOOKING REQUEST',
             '─────────────────────────',
@@ -1474,6 +1475,7 @@ if (submitBtn) {
             `Vehicle:  ${vehicle.value.trim()}`,
             `Date:     ${date.value}`,
             `Time:     ${timeLabel}`,
+            `Address:  ${locationInput.value.trim()}`,
             '─────────────────────────',
             'Sent from ExoticElegance.com'
           ].join('\n')
