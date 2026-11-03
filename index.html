@@ -1443,6 +1443,18 @@ if (submitBtn) {
     const serviceLabel = service.options[service.selectedIndex].text;
     const selectedBtn  = document.querySelector('.time-slot-btn.selected');
     const timeLabel    = selectedBtn ? selectedBtn.dataset.label : time.value;
+    
+    // ── Prepare data for Google Calendar ─────────────────
+    const calendarData = {
+    name: name.value.trim(),
+    phone: contact.value.trim(),
+    service: serviceLabel,
+    addons: addonsText,
+    vehicle: vehicle.value.trim(),
+    date: date.value,
+    time: time.value,
+    address: locationInput.value.trim()
+    };
 
     // ── UI: loading state ────────────────────────────────────────
     submitBtn.disabled    = true;
@@ -1485,6 +1497,20 @@ if (submitBtn) {
       const result = await response.json();
 
       if (result.success) {
+        // ── Send booking to Google Calendar ─────────────────
+        try {
+        await fetch('https://script.google.com/macros/s/AKfycbwDMbqS4L_S2fnDl0YGSFOAVoStkCgDV2jXZCD1TX75DhnN2Hz3-GokVYd6nbxevW0d/exec', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify(calendarData)
+        });
+        } catch (calendarError) {
+        console.error('Google Calendar error:', calendarError);
+        }
+        
         // ── Show success message inside modal ────────────────────
         const modalBody = submitBtn.closest('.modal-body');
         const successMsg = document.createElement('div');
