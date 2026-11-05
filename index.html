@@ -1054,10 +1054,8 @@
      { date: "2026-03-30", time: "11:00" }   → blocks 8:00–14:00 that day
      { date: "2026-04-05", time: "14:00" }   → blocks 11:00–17:00 that day
    ──────────────────────────────────────────────────────────────── */
-const EXISTING_BOOKINGS = [
-  // { date: "2026-03-30", time: "11:00" },
-  // { date: "2026-04-05", time: "14:00" },
-];
+
+let calendarBookings = [];
 
 /* ── 2. SERVICES & ADD-ONS DATA ───────────────────────────────── */
 const SERVICES = {
@@ -1111,36 +1109,70 @@ function getAllSlots() {
 
 /**
  * Given a date string "YYYY-MM-DD", returns a Set of disabled
- * totalMinutes values based on EXISTING_BOOKINGS ± 3 hours.
+  * totalMinutes values based on Google Calendar bookings.
  */
 function getBlockedMinutes(dateStr) {
   const blocked = new Set();
-  EXISTING_BOOKINGS.forEach(booking => {
-    if (booking.date !== dateStr) return;
-    const [bh, bm] = booking.time.split(':').map(Number);
-    const bookingMins = bh * 60 + bm;
-    getAllSlots().forEach(slot => {
-      // Block any slot within 3 hours (inclusive) — only slots with
-      // a STRICT distance > 180 min are available.
-      // Example: booking at 11:00 (660 min)
-      //   8:00 (480) → |660-480| = 180 → blocked (not > 180)
-      //   8:30 (510) → |660-510| = 150 → blocked
-      //  14:00 (840) → |840-660| = 180 → blocked (not > 180)
-      //  14:30 (870) → |870-660| = 210 → available ✓
-      // Wait — per user spec: 8:00 AM IS available, 2:00 PM IS available.
-      // That means the threshold is >= 180, so we block strictly < 180.
-      // |660-480| = 180 → available (8:00 AM OK)
-      // |660-510| = 150 → blocked  (8:30 AM blocked)
-      // |840-660| = 180 → available (2:00 PM OK)
-      // |870-660| = 210 → available (2:30 PM OK)
-      if (Math.abs(slot.totalMins - bookingMins) < 180) {
+
+  const slots = getAllSlots();
+
+  calendarBookings.forEach(booking => {
+    const [startHour, startMinute] = booking.start.split(':').map(Number);
+    const [endHour, endMinute] = booking.end.split(':').map(Number);
+
+    const bookingStart = startHour * 60 + startMinute;
+    const bookingEnd = endHour * 60 + endMinute;
+
+    slots.forEach(slot => {
+      const slotStart = slot.totalMins;
+      const slotEnd = slotStart + 180;
+
+      // Block the slot if the booking overlaps its 3-hour duration
+      if (slotStart < bookingEnd && slotEnd > bookingStart) {
         blocked.add(slot.totalMins);
       }
     });
   });
+
   return blocked;
 }
+  
+function loadCalendarBookings(dateStr) {
+  const callbackName = 'calendarCallback_' + Date.now();
 
+  window[callbackName] = function(data) {
+    if (data.error) {
+      console.error('Calendar error:', data.error);
+      calendarBookings = [];
+    } else {
+      calendarBookings = data.bookings || [];
+    }
+
+    buildTimeOptions(dateStr);
+
+    delete window[callbackName];
+    if (script.parentNode) {
+      script.parentNode.removeChild(script);
+    }
+  };
+
+  const script = document.createElement('script');
+
+  script.src = 'https://script.google.com/macros/s/AKfycbwDMbqS4L_S2fnDl0YGSFOAVoStkCgDV2jXZCD1TX75DhnN2Hz3-GokVYd6nbxevW0d/exec'
+    + '?date=' + encodeURIComponent(dateStr)
+    + '&callback=' + callbackName;
+
+  script.onerror = function() {
+    console.error('Could not load calendar availability.');
+    calendarBookings = [];
+    buildTimeOptions(dateStr);
+    delete window[callbackName];
+    script.remove();
+  };
+
+  document.head.appendChild(script);
+}
+  
 /**
  * Rebuild the #bookTime <select> for the given date.
  * Disables slots that fall within ±3h of any existing booking.
@@ -1243,7 +1275,7 @@ if (bookDateEl) {
   bookDateEl.addEventListener('change', function () {
     const dateStr = this.value;
     if (dateStr) {
-      buildTimeOptions(dateStr);
+      loadCalendarBookings(dateStr);
       const errTime = document.getElementById('errTime');
       if (errTime) errTime.classList.remove('visible');
       // Remove error highlight from all time buttons
@@ -1523,8 +1555,7 @@ if (submitBtn) {
         submitBtn.style.display = 'none';
         document.getElementById('bookingCancelBtn').textContent = 'Close';
 
-        // ── Add booking to local block array ─────────────────────
-        EXISTING_BOOKINGS.push({ date: date.value, time: time.value });
+      
 
         // ── Reset & close after 4s ───────────────────────────────
         setTimeout(() => {
