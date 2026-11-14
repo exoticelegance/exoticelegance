@@ -552,6 +552,23 @@
   footer nav a:hover { color: var(--gold); }
   footer nav a::after { display: none; }
 
+  .footer-trust {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gold);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.footer-trust svg {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+}
+
   /* ─── MODALS ─────────────────────────────────────────────────── */
   .modal-backdrop {
     display: none; position: fixed; inset: 0; z-index: 1000;
@@ -988,18 +1005,28 @@
     </a>
   </div>
 </section>
-
 <!-- ═══════════════════════════════════════════════════ FOOTER -->
 <footer>
   <div class="logo">Exotic <span>Elegance</span></div>
+
+  <div class="footer-trust">
+    <svg viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="1.7"
+         stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/>
+      <path d="m9 12 2 2 4-4"/>
+    </svg>
+    <span>LICENSED &amp; INSURED</span>
+  </div>
+
   <p>© 2026 Exotic Elegance. All rights reserved.</p>
+
   <nav>
     <a href="#home">Home</a>
     <a href="#services">Services</a>
     <a href="#contact">Contact</a>
   </nav>
 </footer>
-
 <!-- ═══════════════════════════════════════════════════ SERVICE MODAL -->
 <div class="modal-backdrop" id="serviceModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="serviceModalTitle">
   <div class="modal" id="serviceModal">
