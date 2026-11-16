@@ -430,6 +430,126 @@
   }
   .dot.active { background: var(--gold); transform: scale(1.3); }
 
+  
+/* ─── CUSTOMER REVIEWS ─────────────────────────────────────── */
+#reviews {
+  background: var(--grey);
+}
+
+#reviews .section-header {
+  text-align: center;
+}
+
+.reviews-carousel {
+  position: relative;
+  max-width: 780px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.reviews-track {
+  display: flex;
+  transition: transform 0.55s cubic-bezier(.4,0,.2,1);
+}
+
+.reviews-slide {
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.reviews-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 650px;
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+
+.reviews-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(5,20,41,0.85);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(240,185,77,0.5);
+  color: var(--gold);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: background var(--transition), color var(--transition);
+}
+
+.reviews-btn:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.reviews-prev {
+  left: 16px;
+}
+
+.reviews-next {
+  right: 16px;
+}
+
+.reviews-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.reviews-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(5,20,41,0.2);
+  border: none;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.reviews-dot.active {
+  background: var(--gold);
+  transform: scale(1.3);
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .reviews-carousel {
+    max-width: 100%;
+  }
+
+  .reviews-slide {
+    padding: 5px;
+  }
+
+  .reviews-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .reviews-prev {
+    left: 10px;
+  }
+
+  .reviews-next {
+    right: 10px;
+  }
+}
+
   /* ─── ABOUT ──────────────────────────────────────────────────── */
   #about {
     background: var(--navy);
@@ -934,6 +1054,46 @@
   </div>
 </section>
 
+  
+<!-- ═══════════════════════════════════════════════════ CUSTOMER REVIEWS -->
+<section id="reviews" class="section">
+  <div class="section-header">
+    <div class="section-label reveal">What Our Clients Say</div>
+    <h2 class="section-title reveal reveal-delay-1">Customer Reviews</h2>
+  </div>
+
+  <div class="reviews-carousel reveal reveal-delay-2">
+    <div class="reviews-track" id="reviewsTrack">
+      <div class="reviews-slide">
+        <img src="review1.png" alt="Customer review 1">
+      </div>
+      <div class="reviews-slide">
+        <img src="review2.png" alt="Customer review 2">
+      </div>
+      <div class="reviews-slide">
+        <img src="review3.png" alt="Customer review 3">
+      </div>
+      <div class="reviews-slide">
+        <img src="review4.png" alt="Customer review 4">
+      </div>
+      <div class="reviews-slide">
+        <img src="review5.png" alt="Customer review 5">
+      </div>
+    </div>
+
+    <button class="reviews-btn reviews-prev" id="reviewsPrev" aria-label="Previous review">&#8592;</button>
+    <button class="reviews-btn reviews-next" id="reviewsNext" aria-label="Next review">&#8594;</button>
+  </div>
+
+  <div class="reviews-dots" id="reviewsDots">
+    <button class="reviews-dot active" aria-label="Review 1"></button>
+    <button class="reviews-dot" aria-label="Review 2"></button>
+    <button class="reviews-dot" aria-label="Review 3"></button>
+    <button class="reviews-dot" aria-label="Review 4"></button>
+    <button class="reviews-dot" aria-label="Review 5"></button>
+  </div>
+</section>
+
 <!-- ═══════════════════════════════════════════════════ ABOUT -->
 <section id="about" class="section">
   <div class="about-inner">
@@ -1342,6 +1502,118 @@ const nextBtn = document.getElementById('carouselNext');
 if (prevBtn) prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
 if (nextBtn) nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
 dots.forEach((d, i) => d.addEventListener('click', () => goToSlide(i)));
+
+  
+/* ── 7B. CUSTOMER REVIEWS CAROUSEL ─────────────────────────── */
+
+let currentReview = 0;
+
+const reviewsTrack = document.getElementById('reviewsTrack');
+const reviewSlides = document.querySelectorAll('.reviews-slide');
+const reviewDots = document.querySelectorAll('.reviews-dot');
+const reviewsPrev = document.getElementById('reviewsPrev');
+const reviewsNext = document.getElementById('reviewsNext');
+
+const totalReviews = reviewSlides.length;
+let reviewAutoplay;
+let reviewTouchStartX = 0;
+let reviewTouchEndX = 0;
+
+function goToReview(n) {
+  if (!totalReviews || !reviewsTrack) return;
+
+  currentReview = (n + totalReviews) % totalReviews;
+
+  reviewsTrack.style.transform =
+    `translateX(-${currentReview * 100}%)`;
+
+  reviewDots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentReview);
+  });
+}
+
+// Previous and next buttons
+if (reviewsPrev) {
+  reviewsPrev.addEventListener('click', () => {
+    goToReview(currentReview - 1);
+    restartReviewAutoplay();
+  });
+}
+
+if (reviewsNext) {
+  reviewsNext.addEventListener('click', () => {
+    goToReview(currentReview + 1);
+    restartReviewAutoplay();
+  });
+}
+
+// Dot navigation
+reviewDots.forEach((dot, i) => {
+  dot.addEventListener('click', () => {
+    goToReview(i);
+    restartReviewAutoplay();
+  });
+});
+
+// Automatic slide change every 6 seconds
+
+function startReviewAutoplay() {
+  // Prevent multiple intervals from running simultaneously
+  stopReviewAutoplay();
+
+  if (totalReviews > 1) {
+    reviewAutoplay = setInterval(() => {
+      goToReview(currentReview + 1);
+    }, 6000);
+  }
+}
+
+function stopReviewAutoplay() {
+  if (reviewAutoplay) {
+    clearInterval(reviewAutoplay);
+    reviewAutoplay = null;
+  }
+}
+
+function restartReviewAutoplay() {
+  stopReviewAutoplay();
+  startReviewAutoplay();
+}
+
+
+// Pause while the user hovers over the carousel
+const reviewsCarousel = document.querySelector('.reviews-carousel');
+
+if (reviewsCarousel) {
+  reviewsCarousel.addEventListener('mouseenter', stopReviewAutoplay);
+  reviewsCarousel.addEventListener('mouseleave', startReviewAutoplay);
+
+  // Touch navigation for mobile
+  reviewsCarousel.addEventListener('touchstart', e => {
+    reviewTouchStartX = e.changedTouches[0].screenX;
+    stopReviewAutoplay();
+  }, { passive: true });
+
+  reviewsCarousel.addEventListener('touchend', e => {
+    reviewTouchEndX = e.changedTouches[0].screenX;
+
+    const difference = reviewTouchStartX - reviewTouchEndX;
+
+    if (Math.abs(difference) > 50) {
+      if (difference > 0) {
+        goToReview(currentReview + 1);
+      } else {
+        goToReview(currentReview - 1);
+      }
+    }
+
+    restartReviewAutoplay();
+  }, { passive: true });
+}
+
+// Start autoplay
+goToReview(0);
+startReviewAutoplay();
 
 /* ── 8. DATE FIELD → REBUILD TIME OPTIONS ─────────────────────── */
 const bookDateEl = document.getElementById('bookDate');
